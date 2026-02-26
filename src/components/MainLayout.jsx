@@ -17,42 +17,24 @@
  * =====================================*/
 
 import { useEffect } from 'react'
+import PrimaryNavbar from './PrimaryNavbar'
 
-import { useApp } from '../../stores/AppProvider' // Not sure if this works with how we are planning?
-import { PrimaryNavbar } from './PrimaryNavbar'
-import { Sidebar } from '../layouts/Sidebar' // Remove
-
-export const MainLayout = ({ headerConfig, headerActions }) => { 
-    const { isSidebarPinned } = useApp(); // Remove
-
-    // Change to Reflect Date only
+export const MainLayout = ({ activeTab, navItems, children }) => { 
     useEffect(() => {
         const baseTitle = 'ShiftPlanner';
-        if (headerConfig?.title) {
-            document.title = `${baseTitle} | ${headerConfig.title}`;
-        } else {
-            document.title = baseTitle;
-        }
-
-        return () => {
-            document.title = baseTitle;
-        };
-    }, [headerConfig?.title]); 
+        document.title = activeTab?.title ? `${baseTitle} | ${activeTab.title}` : baseTitle;
+    }, [activeTab?.title]); 
 
     return (
-        <>          
-            <div className="flex flex-col h-screen bg-surface-primary text-text-primary">
-                <PrimaryNavbar {...headerConfig} actions={headerActions} />
-                
-                <div className="flex flex-1 overflow-hidden"> 
-                    <main 
-                        className="flex-1 overflow-y-auto main-content-scrollable p-0 transition-all duration-300"
-                        style={{ marginLeft: isSidebarPinned ? '64px' : '20px' }}
-                    >
-                    </main>
-
-                </div>
+        <div className="flex flex-col h-screen bg-surface-primary text-text-primary">
+            {/* If you haven't brought over PrimaryNavbar yet, you can comment this out temporarily */}
+            <PrimaryNavbar {...activeTab} actions={navItems} />
+            
+            <div className="flex flex-1 overflow-hidden"> 
+                <main className="flex-1 overflow-y-auto p-4 transition-all duration-300">
+                    {children}
+                </main>
             </div>
-        </>
+        </div>
     );
 };
