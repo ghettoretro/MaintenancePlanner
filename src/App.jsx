@@ -14,9 +14,9 @@
  * =====================================*/
 
 import { useState, useEffect } from 'react'
-import { MainLayout } from './components/MainLayout'
+import MainLayout from './components/MainLayout'
 import { createWorkOrder, createTech } from './schema/models'
-import './styles/App.css'
+import './styles/index.css'
 
 // Simple storage key
 const STORAGE_KEY = 'shift_runner_v1'
