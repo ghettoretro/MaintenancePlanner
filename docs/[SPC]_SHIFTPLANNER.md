@@ -317,3 +317,35 @@ export const createShiftSummary = (initial = {}) => ({
   turnoverNotes: "",
   ...initial
 });
+
+---
+
+## Bill of Materials
+
+for the shift-runner repo. You only need these 6 files to make this work:
+1. The Setup (Root Folder)
+package.json: The list of ingredients (React + Vite).
+
+vite.config.js: The "Compressor." This is the crucial file that tells the build system: "Don't make a website folder. Smash everything into one index.html file so I can email it."
+
+2. The Brains (/src Folder)
+main.jsx: The standard React entry point (boilerplate).
+
+App.jsx: The command center. This will handle:
+
+Loading your database.json (the roster/assets).
+
+Showing the "Shift Turnover" Grid.
+
+Calculating the "Hours Remaining" math.
+
+Exporting the daily log.
+
+models.js: (Already Done) Your schema file. This defines what a "Tech," "Asset," and "Work Order" look like.
+
+storage.js: A small helper file. Its only job is to handle the "File Open / File Save" logic so your main app code stays clean.
+
+3. The Data (External)
+database.json: This is your "Master Config" template. You will keep this file on your work computer (not in the code). It will contain your lists of Techs, Skills, and Assets.
+
+That’s it. Six files. When you are back at a keyboard, we can start with the vite.config.js to ensure the "Single File" build works before we write any logic.
